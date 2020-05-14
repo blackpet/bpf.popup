@@ -12,12 +12,8 @@ module.exports = (env, options) => {
     output: {
       filename: '[name].js',
       path: path.resolve(__dirname),
-      library: ['bpf', 'videojs'],
+      library: ['bpf', 'popup'],
       libraryTarget: 'umd',
-    },
-
-    externals: {
-      videojs: 'video.js'
     },
 
     module: {
