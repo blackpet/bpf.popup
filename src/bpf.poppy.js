@@ -35,6 +35,8 @@ function BpfPopup () {
           </div>
       `;
 
+  let skinOptions = {};
+
   // logger
   function log(...args) {
     if (debug) {
@@ -42,12 +44,15 @@ function BpfPopup () {
     }
   }
 
-  // template getter/setter
+  // getter/setter
   function setTemplate(tmpl) {
     template = tmpl;
   }
   function getTemplate() {
     return template;
+  }
+  function setSkinOptions(opt) {
+    skinOptions = opt;
   }
 
   function bpfPoppy(id) {
@@ -60,7 +65,9 @@ function BpfPopup () {
       closeable: true,
       modal: true,
       data: {},
-      title: 'BPF Poppy'
+      title: 'BPF Poppy',
+
+      ready: null
     };
 
     let localStorage = {};
@@ -69,7 +76,7 @@ function BpfPopup () {
       const $this = this;
       log('bpf.popup()', options);
 
-      this.options = Object.assign({}, this.options, options);
+      this.options = Object.assign({}, this.options, skinOptions, options);
 
       // create poppy elements
       this.el = $(`<div id="${this.id}" class="bpp">`);
@@ -98,9 +105,9 @@ function BpfPopup () {
       // xhr load or selector
       // load from xhr request
       if (!!this.options.url) {
-        this.el.find('article').load(this.options.url, this.options.data, function () {
-          $('body').append($this.el);
-          $this.handleEvent();
+        this.el.find('article').load(this.options.url, this.options.data, () => {
+          $('body').append(this.el);
+          this.handleEvent();
         });
       }
 
@@ -139,7 +146,7 @@ function BpfPopup () {
       });
 
       // for firb solution pagination
-      var $poppy = this;
+      const $poppy = this;
       $poppy.el.find('.pageNavi [bp-page]').each(function () {
         // remove exist event handler
         this.onclick = null;
@@ -150,6 +157,11 @@ function BpfPopup () {
         });
 
       });
+
+      // execute user define ready function
+      if (!!this.options.ready && typeof this.options.ready === 'function') {
+        this.options.ready.call($poppy);
+      }
     };
 
     /**
@@ -370,6 +382,7 @@ function BpfPopup () {
   return {
     setTemplate: setTemplate,
     getTemplate: getTemplate,
+    setSkinOptions: setSkinOptions,
     create: create,
     getPoppy: getPoppy,
     close: close
