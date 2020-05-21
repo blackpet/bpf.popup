@@ -60,6 +60,31 @@ function BpfPopup () {
     this.id = id;
     this.el;
 
+    /**
+     *
+     * @type {
+     *  modal: boolean
+     *  closeable: boolean
+     *  transition: boolean
+     *  width: number
+     *  height: number
+     *
+     *  buttons: ['ok', 'cancel']
+     *  data: {}
+     *  className: string
+     *  title: string
+     *
+     *  url: string
+     *  selector: css selector
+     *  template: html string
+     *
+     *  ready: null
+     *  close: null
+     *
+     *  TODO blackpet: no implement yet
+     *  instance: boolean
+     * }
+     */
     this.options = {
       instance: false,
       closeable: true,
@@ -89,7 +114,17 @@ function BpfPopup () {
       // load page
       this.options.data = parseToJson(this.options.data);
 
-      // xhr load or selector
+      const renderBody = (body) => {
+        // check jsrender template
+        if (/{{[^}]+}}/.test(body)) {
+          body = jsrender.templates(body).render(this.options.data);
+        }
+        this.el.find('article').append(body);
+        $('body').append(this.el);
+        this.handleEvent();
+      };
+
+      // xhr load or selector or html string
       // load from xhr request
       if (!!this.options.url) {
         this.el.find('article').load(this.options.url, this.options.data, () => {
@@ -100,14 +135,14 @@ function BpfPopup () {
 
       // load from selector (inset dom element)
       else if (!!this.options.selector) {
-        let poppybody = $(this.options.selector).html();
-        // check jsrender template
-        if (/{{[^}]+}}/.test(poppybody)) {
-          poppybody = jsrender.templates(poppybody).render(this.options.data);
-        }
-        this.el.find('article').append(poppybody);
-        $('body').append(this.el);
-        this.handleEvent();
+        const poppybody = $(this.options.selector).html();
+
+        renderBody(poppybody);
+      }
+
+      // load from html template string
+      else if (!!this.options.template) {
+        renderBody(this.options.template);
       }
 
       return this;
@@ -171,7 +206,7 @@ function BpfPopup () {
 
     // [ok]btn binding handler
     this.ok = (fn, label) => {
-      this.el.find('footer .bp-btn-item-ok button').unbind('click').click(fn);
+      this.el.find('footer .bp-btn-item-ok button').unbind('click').click(fn.bind(this));
       if (label && label.length > 0) {
         this.el.find('footer .bp-btn-item-ok span').text(label);
       }
@@ -179,7 +214,7 @@ function BpfPopup () {
 
     // [cancel]btn binding handler
     this.cancel = (fn, label) => {
-      this.el.find('footer .bp-btn-item-cancel button').unbind('click').click(fn);
+      this.el.find('footer .bp-btn-item-cancel button').unbind('click').click(fn.bind(this));
       if (label && label.length > 0) {
         this.el.find('footer .bp-btn-item-cancel span').text(label);
       }
@@ -193,7 +228,10 @@ function BpfPopup () {
       });
 
       // bind close event
-      $(`#${this.id} .bp-close-btn, #${this.id} .bp-pageblock`).click(this.close.bind(this));
+      $(`#${this.id} .bp-close-btn`).click(this.close.bind(this));
+      if (this.options.closeable) {
+        $(`#${this.id} .bp-pageblock`).click(this.close.bind(this));
+      }
 
 
       // prevent form submit
