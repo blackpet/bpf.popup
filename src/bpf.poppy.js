@@ -71,6 +71,7 @@ function BpfPopup () {
       ready: null,
       close: null,
 
+      className: '',
       buttons: []
     };
 
@@ -82,6 +83,7 @@ function BpfPopup () {
 
       this.options = Object.assign({}, this.options, skinOptions, options);
 
+      // create popup!
       this.createPoppy_();
 
       // load page
@@ -126,11 +128,18 @@ function BpfPopup () {
       if (this.options.width) wh.width = this.options.width;
       if (this.options.height) wh.height = this.options.height;
       if (Object.keys(wh).length > 0) {
+        let _body;
         if (bodyEl.length && bodyEl.length > 1) {
-          const _body = Object.values(bodyEl).filter(el => el.className && el.className.indexOf('bp-body') > -1);
-          $(_body).css(wh);
+          _body = Object.values(bodyEl).filter(el => el.className && el.className.indexOf('bp-body') > -1);
+          _body = $(_body);
         } else {
-          bodyEl.css(wh);
+          _body = bodyEl;
+        }
+        $(_body).css(wh);
+
+        // set className
+        if (!!this.options.className) {
+          _body.addClass(this.options.className);
         }
       }
 
@@ -161,13 +170,19 @@ function BpfPopup () {
     }
 
     // [ok]btn binding handler
-    this.ok = (fn) => {
+    this.ok = (fn, label) => {
       this.el.find('footer .bp-btn-item-ok button').unbind('click').click(fn);
+      if (label && label.length > 0) {
+        this.el.find('footer .bp-btn-item-ok span').text(label);
+      }
     };
 
     // [cancel]btn binding handler
-    this.cancel = (fn) => {
+    this.cancel = (fn, label) => {
       this.el.find('footer .bp-btn-item-cancel button').unbind('click').click(fn);
+      if (label && label.length > 0) {
+        this.el.find('footer .bp-btn-item-cancel span').text(label);
+      }
     };
 
     this.handleEvent = function () {
