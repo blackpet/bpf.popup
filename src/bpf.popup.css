@@ -32,6 +32,10 @@
   background-color: var(--bgcolor);
 }
 
+.bpp .bp-article {
+  margin-bottom: 20px;
+}
+
 .pageNavi .pageNow a {
   text-decoration: none;
   font-weight: bold;

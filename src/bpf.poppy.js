@@ -66,8 +66,12 @@ function BpfPopup () {
       modal: true,
       data: {},
       title: 'BPF Poppy',
+      transition: false,
 
-      ready: null
+      ready: null,
+      close: null,
+
+      buttons: []
     };
 
     let localStorage = {};
@@ -78,26 +82,7 @@ function BpfPopup () {
 
       this.options = Object.assign({}, this.options, skinOptions, options);
 
-      // create poppy elements
-      this.el = $(`<div id="${this.id}" class="bpp">`);
-      const blockEl = $('<div class="bp-pageblock">');
-      const bodyEl = $(jsrender.templates(template).render({title:this.options.title}));
-
-      // options setting!
-      const wh = {};
-      if (this.options.width) wh.width = this.options.width;
-      if (this.options.height) wh.height = this.options.height;
-      if (Object.keys(wh).length > 0) bodyEl.css(wh);
-
-      if (this.options.modal) {
-        this.el.append(blockEl.append(bodyEl));
-      } else {
-        this.el.append(bodyEl);
-      }
-
-      if (!this.options.closeable) {
-        this.el.find('.bp-close-btn').hide();
-      }
+      this.createPoppy_();
 
       // load page
       this.options.data = parseToJson(this.options.data);
@@ -124,6 +109,65 @@ function BpfPopup () {
       }
 
       return this;
+    };
+
+    this.createPoppy_ = function () {
+      var tmplData = {
+        title: this.options.title,
+        buttonClass: this.options.buttons.length == 2 ? 'double' : 'single'
+      }
+      // create poppy elements
+      this.el = $(`<div id="${this.id}" class="bpp">`);
+      const blockEl = $('<div class="bp-pageblock">');
+      const bodyEl = $(jsrender.templates(template).render(tmplData));
+
+      // set popup size
+      const wh = {};
+      if (this.options.width) wh.width = this.options.width;
+      if (this.options.height) wh.height = this.options.height;
+      if (Object.keys(wh).length > 0) {
+        if (bodyEl.length && bodyEl.length > 1) {
+          const _body = Object.values(bodyEl).filter(el => el.className && el.className.indexOf('bp-body') > -1);
+          $(_body).css(wh);
+        } else {
+          bodyEl.css(wh);
+        }
+      }
+
+      // set buttons
+      if (this.options.buttons.length == 0) {
+        bodyEl.find('footer').remove();
+      } else {
+        if (!this.options.buttons.includes('ok')) {
+          bodyEl.find('.bp-btn-item-ok').remove();
+        }
+        if (!this.options.buttons.includes('cancel')) {
+          bodyEl.find('.bp-btn-item-cancel').remove();
+        }
+        // [ok]btn abstract binding to close
+        bodyEl.find('.bp-btn-item-ok button').click(this.close.bind(this));
+        bodyEl.find('.bp-btn-item-cancel button').click(this.close.bind(this));
+      }
+
+      if (this.options.modal) {
+        this.el.append(blockEl.append(bodyEl));
+      } else {
+        this.el.append(bodyEl);
+      }
+
+      if (!this.options.closeable) {
+        this.el.find('.bp-close-btn').hide();
+      }
+    }
+
+    // [ok]btn binding handler
+    this.ok = (fn) => {
+      this.el.find('footer .bp-btn-item-ok button').unbind('click').click(fn);
+    };
+
+    // [cancel]btn binding handler
+    this.cancel = (fn) => {
+      this.el.find('footer .bp-btn-item-cancel button').unbind('click').click(fn);
     };
 
     this.handleEvent = function () {
@@ -192,12 +236,22 @@ function BpfPopup () {
     this.close = function () {
       log('bpf.close()', this);
 
-      // remove element
-      $(`#${this.id}.bpp`).remove();
+      // if specified close, resolve Promise
+      if (!!this.options.close && typeof this.options.close === 'function') {
+        this.options.close.call(this).then(() => {
+          close_();
+        });
+      } else {
+        close_();
+      }
+    };
 
+    const close_ = () => {
+      $(`#${this.id}.bpp`).remove();
       // delete BPF poppy object
       delete poppy[id];
     };
+
 
     this.submit = function (obj, _toUrl, _callback) {
       const $this = this;
