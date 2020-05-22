@@ -65,7 +65,6 @@ function BpfPopup () {
      * @type {
      *  modal: boolean
      *  closeable: boolean
-     *  transition: boolean
      *  width: number
      *  height: number
      *
@@ -91,7 +90,6 @@ function BpfPopup () {
       modal: true,
       data: {},
       title: 'BPF Poppy',
-      transition: false,
 
       ready: null,
       close: null,

@@ -134,6 +134,10 @@
         function () {
           console.log('confirm ok!!!');
           this.close();
+        },
+        function () {
+          console.log('confirm cancel!!!');
+          this.close();
         });
     });
   });
@@ -141,7 +145,7 @@
   function openModal() {
     bpf.popup.create('pop1', {
       debug: true,
-      title: '타이틀',
+      title: '내맘대로 타이틀123',
       width: 1000,
       modal: true,
       buttons: ['ok', 'cancel'],
@@ -158,7 +162,6 @@
   function openDialog() {
     bpf.popup.create('bbb', {
       debug: true,
-      modal: false,
       url: '../../popup/bpf-poppy2.html',
       data: {param1:'abc', param2:'def'},
       title: '바닥이 열려있는 팝업',

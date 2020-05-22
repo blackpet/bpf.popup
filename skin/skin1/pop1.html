@@ -1,6 +1,13 @@
     <span class="txt_s16cDGray">기본팝업은 사이즈를 CSS로 잡아주어야 주서야 합니다.</span><br>
     <span class="txt_s16cDGray">아래 2, 3, 4번 가이드외에 사이즈가 필요한경우 기본 팝업 모듈을 이용해서 CSS 작성하시면 됩니다. .</span>
     <div><button id="okBtn" class="btn_brown">[확인]btn event binding</button></div>
+    <div><button id="bpfAlertBtn" class="btn_brown">alert</button></div>
+    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, corrupti vitae in non eum quia deserunt magnam totam! Id pariatur alias quisquam architecto ducimus totam fugit iure, tenetur earum velit.</div>
+    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, corrupti vitae in non eum quia deserunt magnam totam! Id pariatur alias quisquam architecto ducimus totam fugit iure, tenetur earum velit.</div>
+    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, corrupti vitae in non eum quia deserunt magnam totam! Id pariatur alias quisquam architecto ducimus totam fugit iure, tenetur earum velit.</div>
+    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, corrupti vitae in non eum quia deserunt magnam totam! Id pariatur alias quisquam architecto ducimus totam fugit iure, tenetur earum velit.</div>
+    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, corrupti vitae in non eum quia deserunt magnam totam! Id pariatur alias quisquam architecto ducimus totam fugit iure, tenetur earum velit.</div>
+    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, corrupti vitae in non eum quia deserunt magnam totam! Id pariatur alias quisquam architecto ducimus totam fugit iure, tenetur earum velit.</div>
     <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, corrupti vitae in non eum quia deserunt magnam totam! Id pariatur alias quisquam architecto ducimus totam fugit iure, tenetur earum velit.</div>
     <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, corrupti vitae in non eum quia deserunt magnam totam! Id pariatur alias quisquam architecto ducimus totam fugit iure, tenetur earum velit.</div>
     <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, corrupti vitae in non eum quia deserunt magnam totam! Id pariatur alias quisquam architecto ducimus totam fugit iure, tenetur earum velit.</div>
@@ -17,9 +24,14 @@
         $(function () {
           poppy = bpf.popup.getPoppy('pop1');
 
+          $('#bpfAlertBtn').click(() => {
+            console.log('alertBtn clicked!!');
+            alert('alert 뜨니????');
+          });
+
           // [확인]btn attach event
           $('button#okBtn').click(() => {
-            poppy.ok(callback);
+            poppy.ok(callback, '내맘대로 확인');
           });
         });
 

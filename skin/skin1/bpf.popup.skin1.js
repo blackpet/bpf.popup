@@ -41,7 +41,6 @@
   bpf.popup.setTemplate(skin1Tmpl);
   bpf.popup.setSkinOptions({
     title: 'NS Campus',
-    transition: true,
     ready: function () {
       console.log('skin1 bpf.popup onready!');
       var poppy = this;
@@ -76,6 +75,7 @@
 function alert(message, fn) {
   var id = 'alert-' + Math.random().toString(36).substring(2, 10);
   var poppy = bpf.popup.create(id, {
+    debug: true,
     template: '<div>{{:message}}</div>',
     width: 500,
     title: '',
