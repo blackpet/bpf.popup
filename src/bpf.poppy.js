@@ -178,11 +178,11 @@ function BpfPopup () {
           _body = bodyEl;
         }
         $(_body).css(wh);
+      }
 
-        // set className
-        if (!!this.options.className) {
-          _body.addClass(this.options.className);
-        }
+      // set className
+      if (!!this.options.className) {
+        this.el.addClass(this.options.className);
       }
 
       // set buttons
