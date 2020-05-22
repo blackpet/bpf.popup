@@ -6,18 +6,14 @@ module.exports = (env, options) => {
     // devtool: options.mode === 'development' ? 'inline-source-map' : '',
 
     entry: {
-      'bpf.video': ['@babel/polyfill', 'video.js', './src/bpf.video.js'],
+      'bpf.popup': ['@babel/polyfill', './src/bpf.poppy.js'],
     },
 
     output: {
       filename: '[name].js',
       path: path.resolve(__dirname),
-      library: ['bpf', 'videojs'],
+      library: ['bpf', 'popup'],
       libraryTarget: 'umd',
-    },
-
-    externals: {
-      videojs: 'video.js'
     },
 
     module: {
@@ -50,13 +46,18 @@ module.exports = (env, options) => {
     config.devServer = {
       contentBase: path.join(__dirname),
       host: '0.0.0.0',
-      port: 4001,
+      port: 4002,
       hot: true,
       // open: true,
-      proxy: {
-        '/admin': {
-          target: 'http://localhost:8080'
-        }
+      // proxy: {
+      //   '/admin': {
+      //     target: 'http://localhost:8080'
+      //   }
+      // },
+      setup(app) {
+        app.post('*', (req, res) => {
+          res.redirect(req.originalUrl);
+        });
       },
     }
   } else {

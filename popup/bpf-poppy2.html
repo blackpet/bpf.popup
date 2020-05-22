@@ -1,0 +1,88 @@
+<style>
+    .txt {
+        line-height: 3em;
+        font-size: 2em;
+    }
+</style>
+<div>
+    <h3>search</h3>
+    <form name="frm" id="frm">
+    <ul>
+        <li>txt1: <input type="text" name="txt1" value="1111"></li>
+        <li>txt2: <input type="text" name="txt2" value="2222"></li>
+    </ul>
+
+    <div style="border:1px blue dashed">
+        localStorage- key: <input type="text" id="localKey">
+        value: <input type="text" id="localValue">
+        <button id="storeLocalStorageBtn">저장하기!</button>
+    </div>
+    </form>
+
+    <button id="callbackBtn">manual Callback!!</button>
+    <button id="closeBtn">내맘데로 닫기!</button>
+    <button id="searchBtn">검색! (form submit)</button>
+    <button id="search2Btn">검색2! (json submit)</button>
+    <button id="nextBtn">다음페이지로 (submit to next page)</button>
+
+    <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda consequuntur, doloremque doloribus enim eveniet labore molestias odit pariatur perferendis porro possimus quidem quisquam quod repudiandae sed tempora tenetur velit?</div>
+    <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda consequuntur, doloremque doloribus enim eveniet labore molestias odit pariatur perferendis porro possimus quidem quisquam quod repudiandae sed tempora tenetur velit?</div>
+    <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda consequuntur, doloremque doloribus enim eveniet labore molestias odit pariatur perferendis porro possimus quidem quisquam quod repudiandae sed tempora tenetur velit?</div>
+    <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda consequuntur, doloremque doloribus enim eveniet labore molestias odit pariatur perferendis porro possimus quidem quisquam quod repudiandae sed tempora tenetur velit?</div>
+    <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda consequuntur, doloremque doloribus enim eveniet labore molestias odit pariatur perferendis porro possimus quidem quisquam quod repudiandae sed tempora tenetur velit?</div>
+    <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda consequuntur, doloremque doloribus enim eveniet labore molestias odit pariatur perferendis porro possimus quidem quisquam quod repudiandae sed tempora tenetur velit?</div>
+    <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda consequuntur, doloremque doloribus enim eveniet labore molestias odit pariatur perferendis porro possimus quidem quisquam quod repudiandae sed tempora tenetur velit?</div>
+    <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda consequuntur, doloremque doloribus enim eveniet labore molestias odit pariatur perferendis porro possimus quidem quisquam quod repudiandae sed tempora tenetur velit?</div>
+</div>
+
+<script>
+
+
+  (function () {
+    console.log('bpf-poppy2.html loaded!!');
+
+    var poppy;
+
+    $(function () {
+      poppy = bpf.popup.getPoppy('bbb');
+
+      $('#callbackBtn').click(callback);
+
+      $('#closeBtn').click(function () {
+        // use static method
+        bpf.popup.close('bbb');
+      });
+
+      $('#searchBtn').click(function () {
+        console.log('#searchBtn.click!', $('#frm'));
+        poppy.submit($('#frm'));
+      });
+      $('#search2Btn').click(search2);
+      $('#nextBtn').click(function () {
+        poppy.submit($('#frm'), 'popup/bpf-poppy3.html', function(){console.log('다음페이지~~~~');});
+      });
+
+      $('#storeLocalStorageBtn').click(function () {
+        var key = $('#localKey').val();
+        var val = $('#localValue').val();
+        poppy.data.put(key, val);
+
+
+        console.log(poppy.data.get());
+      });
+
+    });
+
+    function callback() {
+      poppy.callback($('#frm'));
+    }
+
+    function search2(e) {
+      poppy.submit({json1: 'aaaa', json2: 'bbbb', param2: '변경된 param2'}, function () {
+        console.log('검색2! (json submit) callback!!');
+      });
+    }
+
+  })();
+
+</script>

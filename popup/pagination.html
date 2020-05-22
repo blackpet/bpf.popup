@@ -1,0 +1,47 @@
+<div>
+    <h3>poppy1</h3>
+
+    <button class="callback-btn">Callback!!</button>
+    <button class="paginate-btn">overwrite paginate()!!</button>
+
+    <div class="pageNavi">
+        <span class="btn"><a href="#" bp-page=1 onclick="goPage('1'); return false;" class="btn_prev_fst">맨앞으로</a></span>
+        <span class="btn"><a href="#" bp-page=2 onclick="goPage('2'); return false;" class="btn_prev">앞으로</a></span>
+        <span class="page"><a href="#" bp-page=1 onclick="goPage('1'); return false;">1</a></span>
+        <span class="page"><a href="#" bp-page=2 onclick="goPage('2'); return false;">2</a></span>
+        <span class="pageNow"><a href="#" onclick="return false;">3</a></span>
+        <span class="page"><a href="#" bp-page=4 onclick="goPage('4'); return false;">4</a></span>
+        <span class="page"><a href="#" bp-page=5 onclick="goPage('5'); return false;">5</a></span>
+        <span class="btn"><a href="#" bp-page=4 onclick="goPage('4'); return false;" class="btn_next">뒤로</a></span>
+        <span class="btn"><a href="#" bp-page=5 onclick="goPage('5'); return false;" class="btn_next_fst">맨뒤으로</a></span>
+    </div>
+
+    <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda consequuntur, doloremque doloribus enim eveniet labore molestias odit pariatur perferendis porro possimus quidem quisquam quod repudiandae sed tempora tenetur velit?</div>
+</div>
+
+<script>
+
+  (function () {
+    console.log('pagination.html loaded!!');
+
+    var poppy;
+
+    $(function () {
+      poppy = bpf.popup.getPoppy('ccc');
+
+      $('.callback-btn').click(callback);
+      $('.paginate-btn').click(overwritePaginate);
+    });
+
+    function callback() {
+      poppy.callback({key1: 111, key2: 2222, key3: 'asdf'});
+    }
+
+    function overwritePaginate() {
+      poppy.paginate = function (page) {
+        console.log('새로만든 paginate!!!', page);
+      };
+    }
+  })();
+
+</script>

@@ -1,0 +1,31 @@
+<div>
+    <h3>poppy1</h3>
+
+    <button class="callback-btn">Callback!!</button>
+
+    <button id="getLocalStorageBtn">LocalStorage 가져오기!</button>
+    <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda consequuntur, doloremque doloribus enim eveniet labore molestias odit pariatur perferendis porro possimus quidem quisquam quod repudiandae sed tempora tenetur velit?</div>
+</div>
+
+<script>
+
+  (function () {
+    console.log('bpf-poppy1.html loaded!!');
+
+    var poppy;
+
+    $(function () {
+      poppy = bpf.popup.getPoppy('bbb');
+
+      $('.callback-btn').click(callback);
+      $('#getLocalStorageBtn').click(function () {
+        console.log(poppy.data.get());
+      });
+    });
+
+    function callback() {
+      poppy.callback({key1: 111, key2: 2222, key3: 'asdf'});
+    }
+  })();
+
+</script>
