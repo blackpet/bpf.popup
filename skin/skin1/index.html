@@ -151,7 +151,10 @@
       buttons: ['ok', 'cancel'],
       className: 'new-class-name',
       url: 'pop1.html',
-      callback: callback1
+      callback: callback1,
+      ready: () => {
+        console.log('openModal ready!!!');
+      }
     });
   }
 

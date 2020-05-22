@@ -41,24 +41,27 @@
   bpf.popup.setTemplate(skin1Tmpl);
   bpf.popup.setSkinOptions({
     title: 'NS Campus',
-    ready: function () {
-      console.log('skin1 bpf.popup onready!');
-      var poppy = this;
-      setTimeout(function () {
-        poppy.el.find('.bp-body').addClass('show');
-      }, 50);
-    },
-    close: function () {
-      return new Promise(resolve => {
-        document.querySelector(`#${this.id}.bpp`).addEventListener(
-          'transitionend', () => {
-            console.log('bpf.close() transitionend');
+    skin: {
+      ready: function () {
+        var poppy = this;
+        return new Promise(resolve => {
+          setTimeout(function () {
+            poppy.el.find('.bp-body').addClass('show');
             resolve();
-          }
-        );
+          }, 50);
+        })
+      },
+      close: function () {
+        return new Promise(resolve => {
+          document.querySelector(`#${this.id}.bpp`).addEventListener(
+            'transitionend', () => {
+              resolve();
+            }
+          );
 
-        $(`#${this.id}.bpp .bp-body`).removeClass('show');
-      });
+          $(`#${this.id}.bpp .bp-body`).removeClass('show');
+        });
+      }
     }
   });
 

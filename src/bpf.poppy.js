@@ -95,7 +95,16 @@ function BpfPopup () {
       close: null,
 
       className: '',
-      buttons: []
+      buttons: [],
+
+      skin: {
+        ready: () => {
+          return new Promise(resolve => resolve)
+        },
+        close: () => {
+          return new Promise(resolve => resolve)
+        }
+      }
     };
 
     let localStorage = {};
@@ -253,10 +262,13 @@ function BpfPopup () {
 
       });
 
-      // execute user define ready function
-      if (!!this.options.ready && typeof this.options.ready === 'function') {
-        this.options.ready.call($poppy);
-      }
+      // execute skin ready function
+      this.options.skin.ready.call(this).then(() => {
+        // execute user define ready function
+        if (!!this.options.ready && typeof this.options.ready === 'function') {
+          this.options.ready.call($poppy);
+        }
+      });
     };
 
     /**
@@ -287,14 +299,17 @@ function BpfPopup () {
     this.close = function () {
       log('bpf.close()', this);
 
-      // if specified close, resolve Promise
-      if (!!this.options.close && typeof this.options.close === 'function') {
-        this.options.close.call(this).then(() => {
+      // execute skin close function
+      this.options.skin.close.call(this).then(() => {
+        // if specified close, resolve Promise
+        if (!!this.options.close && typeof this.options.close === 'function') {
+          this.options.close.call(this).then(() => {
+            close_();
+          });
+        } else {
           close_();
-        });
-      } else {
-        close_();
-      }
+        }
+      });
     };
 
     const close_ = () => {
