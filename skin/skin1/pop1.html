@@ -1,7 +1,44 @@
+<style>
+    /* 체크박스 */
+    [class^="inp_chk"] {position:relative; letter-spacing:-5px; vertical-align:middle;}
+    [class^="inp_chk"] input[type="checkbox"] {position:absolute; left:0; top:0; opacity:0;}
+    [class^="inp_chk"] .icon_chk {width:24px; height:24px; background-image:url('../images/common/icon_chk_off.png'); vertical-align:middle;}
+    [class^="inp_chk"] .icon_chk + [class^="txt_"] {margin-left:5px; vertical-align:middle;  letter-spacing:-0.5px;}
+    [class^="inp_chk"] input[type="checkbox"]:checked + .icon_chk {background-image:url('../images/common/icon_chk_on.png');}
+
+    /* 아이콘 */
+    [class^="icon_"] {overflow:hidden; background-color:transparent; background-repeat:no-repeat; background-size:100% auto; vertical-align:middle;}
+
+    input, select, textarea, button {
+        appearance: none;
+        -webkit-appearance: none;
+        font: inherit;
+        font-family: 'Noto Sans KR', sans-serif;
+        border-radius: 0;
+        outline: none;
+        font-weight: 400;
+    }
+</style>
+
     <span class="txt_s16cDGray">기본팝업은 사이즈를 CSS로 잡아주어야 주서야 합니다.</span><br>
     <span class="txt_s16cDGray">아래 2, 3, 4번 가이드외에 사이즈가 필요한경우 기본 팝업 모듈을 이용해서 CSS 작성하시면 됩니다. .</span>
     <div><button id="okBtn" class="btn_brown">[확인]btn event binding</button></div>
     <div><button id="bpfAlertBtn" class="btn_brown">alert</button></div>
+
+    <div class="formGroup_chk">
+        <label class="inp_chk">
+            <input type="checkbox" >
+            <i class="icon_chk"></i>
+            <span class="txt_s16cDGray">선택 않된것</span>
+        </label>
+
+        <label class="inp_chk">
+            <input type="checkbox" checked>
+            <i class="icon_chk"></i>
+            <span class="txt_s16cDGray">선택 된것</span>
+        </label>
+
+    </div>
     <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, corrupti vitae in non eum quia deserunt magnam totam! Id pariatur alias quisquam architecto ducimus totam fugit iure, tenetur earum velit.</div>
     <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, corrupti vitae in non eum quia deserunt magnam totam! Id pariatur alias quisquam architecto ducimus totam fugit iure, tenetur earum velit.</div>
     <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, corrupti vitae in non eum quia deserunt magnam totam! Id pariatur alias quisquam architecto ducimus totam fugit iure, tenetur earum velit.</div>

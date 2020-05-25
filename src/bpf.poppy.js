@@ -230,7 +230,7 @@ function BpfPopup () {
     this.handleEvent = function () {
       // stop event bubbling for close
       $(`#${this.id} .bp-body`).click(e => {
-        e.preventDefault();
+        // e.preventDefault();
         e.stopPropagation();
       });
 
