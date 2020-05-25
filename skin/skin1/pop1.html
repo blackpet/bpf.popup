@@ -53,10 +53,10 @@
     <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, corrupti vitae in non eum quia deserunt magnam totam! Id pariatur alias quisquam architecto ducimus totam fugit iure, tenetur earum velit.</div>
 
     <script>
+        var poppy;
       (function () {
         console.log('skin1 pop1.html loaded!!');
 
-        var poppy;
 
         $(function () {
           poppy = bpf.popup.getPoppy('pop1');
@@ -73,7 +73,7 @@
         });
 
         function callback() {
-          poppy.callback({key1: 111, key2: 2222, key3: 'asdf'});
+          poppy.callback(poppy.data.get());
         }
       })();
 

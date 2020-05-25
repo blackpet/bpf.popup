@@ -284,9 +284,10 @@ function BpfPopup () {
     /**
      * apply callback to parent
      * @param obj object or jquery FORM Elements
+     * @param preserveArray preserve array data stands
      */
-    this.callback = function (obj) {
-      obj = parseToJson(obj);
+    this.callback = function (obj, preserveArray = false) {
+      obj = parseToJson(obj, preserveArray);
       log('bpf.callback()', obj);
 
       this.options.callback(obj);
@@ -452,10 +453,11 @@ function BpfPopup () {
   ///////////////////////
   // utilities
   ///////////////////////
-  function parseToJson(obj) {
+  function parseToJson(obj, preserveArray = false) {
     var json = {};
 
-    if (obj instanceof Array) {
+    //
+    if (obj instanceof Array && !preserveArray) {
       obj.forEach(function (el) {
         json = Object.assign({}, json, parseToJson(el));
       });
