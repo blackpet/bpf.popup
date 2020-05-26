@@ -101,10 +101,10 @@ function BpfPopup () {
 
       skin: {
         ready: () => {
-          return new Promise(resolve => resolve)
+          return new Promise(resolve => resolve())
         },
         close: () => {
-          return new Promise(resolve => resolve)
+          return new Promise(resolve => resolve())
         }
       }
     };
