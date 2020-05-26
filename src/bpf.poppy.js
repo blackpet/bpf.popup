@@ -57,6 +57,8 @@ function BpfPopup () {
 
   function bpfPoppy(id) {
 
+    const $poppy = this;
+
     this.id = id;
     this.el;
 
@@ -250,7 +252,6 @@ function BpfPopup () {
       });
 
       // for firb solution pagination
-      const $poppy = this;
       $poppy.el.find('.pageNavi [bp-page]').each(function () {
         // remove exist event handler
         this.onclick = null;
@@ -393,7 +394,7 @@ function BpfPopup () {
 
       // get data from caller
       _default: function () {
-        return this.options.data;
+        return $poppy.options.data;
       },
 
       // delete data of key
