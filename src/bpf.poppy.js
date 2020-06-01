@@ -154,6 +154,11 @@ function BpfPopup () {
         renderBody(this.options.template);
       }
 
+      // focus to 'ok' btn
+      if (this.options.buttons.includes('ok')) {
+        this.el.find('.bp-btn-item-ok button').get(0).focus();
+      }
+
       return this;
     };
 

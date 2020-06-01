@@ -97,6 +97,7 @@ function alert(message, fn) {
 function confirm(message, fnOk, fnCancel) {
   var id = 'confirm-' + Math.random().toString(36).substring(2, 10);
   var poppy = bpf.popup.create(id, {
+    debug: true,
     template: '<div>{{:message}}</div>',
     width: 500,
     title: '',
