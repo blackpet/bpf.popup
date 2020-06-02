@@ -112,7 +112,7 @@ a:focus, button:focus {outline: none;}
 
 [class^="popup_"].bp-body {
   display: inline-block;
-  position: relative;
+  /*position: relative;*/
   padding: 0 40px;
   border-radius: 4px;
   background-color: #fff;

@@ -10,7 +10,7 @@
 (function () {
 
   var skin1Tmpl =
-    `<i class="align_maker"></i>
+    `
       <div class="popup_default bp-body">
           <div class="pop_inner bp-main">
               <header class="pop_header">
