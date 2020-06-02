@@ -92,6 +92,8 @@ function alert(message, fn) {
   if (!!fn && typeof fn === 'function') {
     poppy.ok(fn);
   }
+
+  return poppy;
 }
 
 function confirm(message, fnOk, fnCancel) {
@@ -114,5 +116,7 @@ function confirm(message, fnOk, fnCancel) {
   if (!!fnCancel && typeof fnCancel === 'function') {
     poppy.cancel(fnCancel);
   }
+
+  return poppy;
 }
 
