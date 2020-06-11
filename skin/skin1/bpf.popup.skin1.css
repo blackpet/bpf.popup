@@ -239,3 +239,60 @@ a:focus, button:focus {outline: none;}
   .small .pop_content {max-height:calc(100% - 500px); height:calc(100% - 500px);}
   .small [class^="popup_"].show {transform:scale(1);}
 }
+
+
+
+/*****************************/
+/** overwrite bpf.popup.css **/
+/*****************************/
+.bpp .bp-pageblock {
+  text-align: center;
+  z-index: 501;
+}
+
+
+/* 레이어 팝업 */
+[class^="popup_"].bp-body {
+  display: inline-block;
+  padding: 0 40px;
+  border-radius: 4px;
+  background-color: #fff;
+  transform: scale(0);
+  opacity: 0;
+  letter-spacing: -0.5px;
+  vertical-align: middle;
+  box-shadow: 0 4px 8px 4px rgba(0, 0, 0, 0.1);
+  transition: all .2s ease;
+}
+
+[class^="popup_"].show.bp-body {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.pop_footer.bp-footer {
+  padding: 20px 0 40px 0;
+}
+
+@media screen and (max-width: 767px) and (min-width: 360px) {
+
+  .bpp .bp-pageblock {
+    padding: 20px;
+  }
+
+  .bpp .bp-body {
+    width: 100%;
+    padding: 0 20px;
+  }
+  .pop_footer.bp-footer {
+    padding: 20px 0;
+  }
+
+  .bpp.small .pop_content.bp-article {
+    max-height: none;
+    height: unset;
+  }
+}
+
+
+

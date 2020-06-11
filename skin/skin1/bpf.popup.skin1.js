@@ -80,8 +80,8 @@ function alert(message, fn) {
   var poppy = bpf.popup.create(id, {
     debug: true,
     template: '<div>{{:message}}</div>',
-    width: 500,
     title: '',
+    className: 'small',
     closeable: true,
     buttons: ['ok'],
     data: {
@@ -101,8 +101,8 @@ function confirm(message, fnOk, fnCancel) {
   var poppy = bpf.popup.create(id, {
     debug: true,
     template: '<div>{{:message}}</div>',
-    width: 500,
     title: '',
+    className: 'small',
     closeable: false,
     buttons: ['ok', 'cancel'],
     data: {
