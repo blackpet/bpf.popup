@@ -9,6 +9,14 @@
 
 ## Documentation
 
+### Static Methods
+
+| methods  | signature                       | description                         |
+|----------|---------------------------------|-------------------------------------|
+| create   | bpf.popup.create('id', options) | create popup instance               |
+| close    | bpf.popup.close('id')           | dispose popup instance of name 'id' |
+| getPoppy | bpf.popup.getPoppy('id')        | get popup instance of name 'id'     |
+
 ### Options
 
 #### Props
@@ -16,7 +24,6 @@
 ```javascript
 bpf.popup.create('POPUP_NAME', options);
 ```
-
 
 | option    | type         | value                                             | (default) | description               |
 |-----------|--------------|---------------------------------------------------|-----------|---------------------------|
@@ -37,7 +44,6 @@ bpf.popup.create('POPUP_NAME', options);
 
 #### Events
 
-
 | event    | description                                                        |
 |----------|--------------------------------------------------------------------|
 | callback | invoked when the callback function is called in the popup instance |
@@ -48,7 +54,6 @@ bpf.popup.create('POPUP_NAME', options);
 
 
 ### Instance Methods
-
 
 | methods  | description                                     |
 |----------|-------------------------------------------------|
@@ -64,13 +69,12 @@ bpf.popup.create('POPUP_NAME', options);
 - private storage inside of poppy instance
 - key/value object
 
-
 | methods  | description                   |
 |----------|-------------------------------|
 | push     | [value for array]             |
 | remove   | [value for array]             |
 | indexOf  | [value for array]             |
 | put      | [value for object]            |
-| get      | get value of {key} argument   |
+| get      | get value of {key} argument, if no {key} argument returns whole storage object   |
 | delete   | delete key of storage         |
 | _default | {data} passed by config props |
