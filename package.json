@@ -1,10 +1,9 @@
 {
   "name": "bpf.popup",
   "version": "2.1.0",
-  "description": "Layer popup for BPF",
+  "description": "BPF Modal Dialog",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build-dev": "webpack --mode development",
     "build": "webpack --mode production",
     "dev": "webpack-dev-server --option --mode development",
@@ -16,7 +15,7 @@
     "url": "git+https://github.com/blackpet/bpf.popup.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "blackpet",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/blackpet/bpf.popup/issues"
